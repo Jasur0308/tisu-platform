@@ -1,0 +1,22 @@
+{
+    "homeTitle": "TISU platformasiga xush kelibsiz",
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "homeText": "Mualliflar, xodimlar va administratorlar hamkorlik qiladigan, yaratadigan va kontentni osongina baham ko'radigan zamonaviy platforma.",
+    "homeLink": "Boshlash",
+    "footerText": "© 2025 TISU platformasi — Barcha huquqlar himoyalangan.",
+    "signIn": "Kirish",
+    "signUsername": "Foydalanuvchi nomi",
+    "signPassword": "Parol",
+    "signUsernamePlaceholder": "Foydalanuvchi nomingizni kiriting",
+    "signPasswordPlaceholder": "Parolingizni kiriting",
+    "signInButton": "Xavfsiz kirish",
+    "signInBottomText": "Muallif bo'lishga qiziqasizmi?",
+    "signInBottomLink": "Bu yerda ro'yxatdan o'ting",
+    "firstName": "Ism",
+    "lastName": "Familiya",
+    "middleName": "Otasining ismi",
+    "email": "Elektron pochta",
+    "department": "Bo'lim",
+    "selectDepartment": "Bo'limni tanlang"
+}

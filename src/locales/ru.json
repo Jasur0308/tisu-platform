@@ -1,0 +1,22 @@
+{
+    "homeTitle": "Добро пожаловать на платформу TISU",
+    "login": "Войти",
+    "register": "Регистрация",
+    "homeText": "Современная платформа, на которой авторы, сотрудники и администраторы с легкостью сотрудничают, создают и обмениваются контентом.",
+    "homeLink": "Начать",
+    "footerText": "© 2025 Платформа TISU — Все права защищены.",
+    "signIn": "Войти",
+    "signUsername": "Имя пользователя",
+    "signPassword": "Пароль",
+    "signUsernamePlaceholder": "Введите ваше имя пользователя",
+    "signPasswordPlaceholder": "Введите ваш пароль",
+    "signInButton": "Безопасный вход",
+    "signInBottomText": "Хотите стать автором?",
+    "signInBottomLink": "Зарегистрируйтесь здесь",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "middleName": "Отчество",
+    "email": "Электронная почта",
+    "department": "Отдел",
+    "selectDepartment": "Выберите отдел"
+}

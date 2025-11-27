@@ -1,0 +1,22 @@
+{
+    "homeTitle": "Welcome to TISU Platform",
+    "login": "Login",
+    "register": "Register",
+    "homeText": "A modern platform where authors, staff, and admins collaborate, create, and share content effortlessly.",
+    "homeLink": "Get Started",
+    "footerText": "© 2025 TISU Platform — All rights reserved.",
+    "signIn": "Sign In",
+    "signUsername": "Username",
+    "signPassword": "Password",
+    "signUsernamePlaceholder": "Enter your username",
+    "signPasswordPlaceholder": "Enter your password",
+    "signInButton": "Sign In Secure",
+    "signInBottomText": "Interested in becoming an author?",
+    "signInBottomLink": "Register here",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "middleName": "Middle Name",
+    "email": "Email",
+    "department": "Department",
+    "selectDepartment": "Select Department"
+}
