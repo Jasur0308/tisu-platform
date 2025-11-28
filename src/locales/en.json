@@ -13,10 +13,13 @@
     "signInButton": "Sign In Secure",
     "signInBottomText": "Interested in becoming an author?",
     "signInBottomLink": "Register here",
+    "registerTitle": "Author Registration",
     "firstName": "First Name",
     "lastName": "Last Name",
     "middleName": "Middle Name",
     "email": "Email",
     "department": "Department",
-    "selectDepartment": "Select Department"
+    "optional": "Optional",
+    "selectDepartment": "Select Department",
+    "haveAccount": "Already have an account?"
 }

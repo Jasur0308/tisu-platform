@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../store/themeSlice";
 import { changeLang } from "../../store/langSlice";
+import { logoutUser } from "../../store/authSlice";
 import { useTranslation } from "react-i18next";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
-import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const lang = useSelector((state) => state.lang.value);
     const { mode } = useSelector((state) => state.theme);
+    const { user, isAuth } = useSelector((state) => state.auth);
     const { t, i18n } = useTranslation();
     const location = useLocation();
     const hideLogin = location.pathname === "/login" || location.pathname === "/register";
@@ -20,6 +22,17 @@ export default function Navbar() {
     const handleLang = (v) => {
         dispatch(changeLang(v));
         i18n.changeLanguage(v);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await dispatch(logoutUser()).unwrap();
+            navigate("/login");
+        } catch (err) {
+            console.error("Logout error:", err);
+            // Xatolik bo'lsa ham login sahifasiga yo'naltirish
+            navigate("/login");
+        }
     };
 
     return (
@@ -54,12 +67,7 @@ export default function Navbar() {
                     <li>
                         <button
                             onClick={() => dispatch(toggleTheme())}
-                            className="
-                                w-11 h-11 flex items-center justify-center
-                                rounded-full bg-gray-200 dark:bg-gray-700
-                                shadow cursor-pointer hover:scale-110
-                                transition-all duration-300
-                            "
+                            className="w-11 h-11 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 shadow cursor-pointer hover:scale-110 transition-all duration-300"
                         >
                             {mode === "light" ? (
                                 <SunIcon className="w-6 h-6 text-yellow-500" />
@@ -69,19 +77,37 @@ export default function Navbar() {
                         </button>
                     </li>
 
-                    {/* Login Button */}
-                    <li>
-                        {!hideLogin && (
-                            <li>
+                    {/* Login / Profile / Logout */}
+                    {!hideLogin && (
+                        <li>
+                            {isAuth && user ? (
+                                <div className="flex items-center gap-4">
+                                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                                        {user.username || user.name}
+                                    </span>
+                                    <Link
+                                        to="/admin"
+                                        className="px-5 py-2 rounded-xl bg-green-600 text-white hover:bg-green-700 transition shadow-md"
+                                    >
+                                        {t("profile")}
+                                    </Link>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="px-5 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition shadow-md"
+                                    >
+                                        {t("logout")}
+                                    </button>
+                                </div>
+                            ) : (
                                 <Link
                                     to="/login"
                                     className="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-md"
                                 >
                                     {t("login")}
                                 </Link>
-                            </li>
-                        )}
-                    </li>
+                            )}
+                        </li>
+                    )}
                 </ul>
 
                 {/* Mobile Button */}
@@ -122,18 +148,42 @@ export default function Navbar() {
                             </button>
                         </li>
 
-                        {/* Login */}
-                        <li>
-                            {!hideLogin && (
-                                <Link
-                                    to="/login"
-                                    onClick={() => setOpen(false)}
-                                    className="w-full px-6 py-3 bg-blue-600 text-white text-center rounded-xl hover:bg-blue-700 transition shadow-md"
-                                >
-                                    {t("login")}
-                                </Link>
-                            )}
-                        </li>
+                        {/* Mobile Login / Profile / Logout */}
+                        {!hideLogin && (
+                            <li>
+                                {isAuth && user ? (
+                                    <div className="flex flex-col gap-2">
+                                        <div className="text-center text-gray-700 dark:text-gray-300 mb-2">
+                                            {user.username || user.name}
+                                        </div>
+                                        <Link
+                                            to="/admin"
+                                            onClick={() => setOpen(false)}
+                                            className="block w-full px-6 py-3 bg-green-600 text-white text-center rounded-xl hover:bg-green-700 transition shadow-md"
+                                        >
+                                            {t("profile")}
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                handleLogout();
+                                                setOpen(false);
+                                            }}
+                                            className="w-full px-6 py-3 bg-red-600 text-white text-center rounded-xl hover:bg-red-700 transition shadow-md"
+                                        >
+                                            {t("logout")}
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        to="/login"
+                                        onClick={() => setOpen(false)}
+                                        className="block w-full px-6 py-3 bg-blue-600 text-white text-center rounded-xl hover:bg-blue-700 transition shadow-md"
+                                    >
+                                        {t("login")}
+                                    </Link>
+                                )}
+                            </li>
+                        )}
                     </ul>
                 </div>
             )}

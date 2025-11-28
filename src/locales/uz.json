@@ -13,10 +13,13 @@
     "signInButton": "Xavfsiz kirish",
     "signInBottomText": "Muallif bo'lishga qiziqasizmi?",
     "signInBottomLink": "Bu yerda ro'yxatdan o'ting",
+    "registerTitle": "Mualliflar ro'yxatdan o'tishi",
     "firstName": "Ism",
     "lastName": "Familiya",
     "middleName": "Otasining ismi",
     "email": "Elektron pochta",
     "department": "Bo'lim",
-    "selectDepartment": "Bo'limni tanlang"
+    "optional": "Ixtiyoriy",
+    "selectDepartment": "Bo'limni tanlang",
+    "haveAccount": "Allaqachon akkauntingiz bormi?"
 }

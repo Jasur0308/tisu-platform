@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { loginUser } from "../../api/auth";
+import { loginUser } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
     const { t } = useTranslation();
@@ -12,29 +13,26 @@ export default function Login() {
         });
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
 
-        try {
-            const res = await loginUser(form);
-            console.log("Login response:", res);
-
-            localStorage.setItem("token", res.data.token);
-            console.log("Token saved:", res.data.token);
-            navigate("/profile");
-
-        } catch (err) {
-            console.error("Login error:", err.response?.data?.message || err);
-            setError(err.response?.data?.message || "Login failed");
-        }
+        dispatch(loginUser(form))
+            .then((result) => {
+                if (result.type === 'auth/loginUser/fulfilled') {
+                    console.log("Login successful:", result.payload);
+                    navigate("/admin");
+                } else {
+                    setError(result.payload || "Login failed");
+                }
+            });
     };
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800">
             <div className="w-full max-w-md bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl p-10 border border-white/40">

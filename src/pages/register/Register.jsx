@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { registerUser } from "../../api/auth";
+import { registerUser } from "../../store/authSlice";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 export default function AuthorRegister() {
     const {t} = useTranslation();
@@ -15,24 +17,33 @@ export default function AuthorRegister() {
         orcid: "",
         rorId: "",
     });
-
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.auth);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setSuccess("");
 
         try {
-            await registerUser(form);
+            await dispatch(registerUser(form)).unwrap();
+
             setSuccess("Registration successful!");
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
+
         } catch (err) {
-            setError(err.response?.data?.message || "Error occurred");
+            console.error("Registration error:", err);
+            setError(err || "Error occurred");
         }
     };
 
@@ -41,7 +52,7 @@ export default function AuthorRegister() {
             <div className="w-full max-w-lg bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl p-10 border border-white/40 mt-20">
 
                 <h1 className="text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight">
-                    Author Registration
+                    {t("registerTitle")}
                 </h1>
 
                 {error && <div className="mb-5 p-3 text-red-700 bg-red-100 border border-red-300 rounded-lg">{error}</div>}
@@ -84,7 +95,7 @@ export default function AuthorRegister() {
                                 name="middleName"
                                 value={form.middleName}
                                 onChange={handleChange}
-                                placeholder="Smith (Optional)"
+                                placeholder={`Smith (${t("optional")})`}
                                 className="mt-1 w-full px-4 py-2 rounded-xl border focus:ring-2 focus:ring-blue-300 outline-none"
                             />
                         </div>
@@ -112,9 +123,9 @@ export default function AuthorRegister() {
                                 className="mt-1 w-full px-4 py-2 rounded-xl border focus:ring-2 focus:ring-blue-300 outline-none"
                             >
                                 <option value="">{t("selectDepartment")}</option>
-                                <option value="CS">Computer Science</option>
+                                {/* <option value="CS">Computer Science</option>
                                 <option value="Math">Mathematics</option>
-                                <option value="Physics">Physics</option>
+                                <option value="Physics">Physics</option> */}
                             </select>
                         </div>
                         <div className="flex-1">
@@ -124,7 +135,7 @@ export default function AuthorRegister() {
                                 name="hemIS"
                                 value={form.hemIS}
                                 onChange={handleChange}
-                                placeholder="e.g., U1812345 (Optional)"
+                                placeholder={`e.g., U1812345 (${t("optional")})`}
                                 className="mt-1 w-full px-4 py-2 rounded-xl border focus:ring-2 focus:ring-blue-300 outline-none"
                             />
                         </div>
@@ -138,7 +149,7 @@ export default function AuthorRegister() {
                                 name="orcid"
                                 value={form.orcid}
                                 onChange={handleChange}
-                                placeholder="0000-0000-0000-0000 (Optional)"
+                                placeholder={`0000-0000-0000-0000 (${t("optional")})`}
                                 className="mt-1 w-full px-4 py-2 rounded-xl border focus:ring-2 focus:ring-blue-300 outline-none"
                             />
                         </div>
@@ -158,6 +169,7 @@ export default function AuthorRegister() {
 
                     <button
                         type="submit"
+                        disabled={loading}
                         className="w-full py-3 bg-green-600 text-white font-semibold rounded-xl shadow-lg hover:bg-green-700 transition-all"
                     >
                         {t("register")}
@@ -165,9 +177,9 @@ export default function AuthorRegister() {
                 </form>
 
                 <div className="mt-6 text-center text-sm text-gray-700">
-                    Already have an account?
+                    {t("haveAccount")}
                     <a href="/login" className="ml-1 text-blue-600 font-semibold hover:underline">
-                        Sign In
+                        {t("signIn")}
                     </a>
                 </div>
             </div>

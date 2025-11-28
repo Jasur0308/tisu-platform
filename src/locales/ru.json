@@ -13,10 +13,13 @@
     "signInButton": "Безопасный вход",
     "signInBottomText": "Хотите стать автором?",
     "signInBottomLink": "Зарегистрируйтесь здесь",
+    "registerTitle": "Регистрация автора",
     "firstName": "Имя",
     "lastName": "Фамилия",
     "middleName": "Отчество",
     "email": "Электронная почта",
     "department": "Отдел",
-    "selectDepartment": "Выберите отдел"
+    "optional": "Необязательно",
+    "selectDepartment": "Выберите отдел",
+    "haveAccount": "Уже есть аккаунт?"
 }

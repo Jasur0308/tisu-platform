@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { setMode } from "./store/themeSlice";
 import { fetchProfile } from "./store/authSlice";
 import Profile from "./pages/profile/Profile";
+import Parameters from "./pages/profile/profile-parameters/Parameters";
 
 function App() {
   const mode = useSelector((state) => state.theme.mode);
@@ -38,6 +39,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Profile />} />
+        <Route path="/user" element={<Parameters />} />
       </Routes>
     </div>
   );
